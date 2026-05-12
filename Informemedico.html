@@ -255,5 +255,31 @@
             Documento generado digitalmente por Innova Med.
         </div>
     </div>
+
+            <script>
+    // Función para obtener los datos de la URL
+    function llenarDatos() {
+        const params = new URLSearchParams(window.location.search);
+        
+        // Buscamos todos los elementos que tengan etiquetas <<[...]>>
+        // Nota: Para que esto sea más fácil, rodearemos los datos con un <span> o usaremos un reemplazo de texto.
+        
+        const cuerpo = document.body.innerHTML;
+        let nuevoContenido = cuerpo;
+
+        // Iteramos sobre cada parámetro enviado desde AppSheet
+        params.forEach((valor, llave) => {
+            const etiqueta = `<<[${llave}]>>`;
+            // Reemplazamos todas las coincidencias de la etiqueta por el valor real
+            nuevoContenido = nuevoContenido.split(etiqueta).join(valor);
+        });
+
+        document.body.innerHTML = nuevoContenido;
+    }
+
+    // Ejecutar la función al cargar la página
+    window.onload = llenarDatos;
+            </script>
+            
 </body>
 </html>
