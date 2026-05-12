@@ -5,110 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --bg-color: #f8f9fa;
-            --text-color: #333;
-            --print-btn-bg: #27ae60;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #e9ecef;
-        }
-
-        .no-print-zone {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .print-button {
-            background-color: var(--print-btn-bg);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .report-container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: white;
-            padding: 40px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-
+        :root { --primary-color: #2c3e50; --bg-color: #f8f9fa; --text-color: #333; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--text-color); margin: 0; padding: 0; background-color: #e9ecef; }
+        .no-print-zone { position: fixed; top: 20px; right: 20px; z-index: 1000; }
+        .print-button { background-color: #27ae60; color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .report-container { max-width: 800px; margin: 20px auto; background: white; padding: 40px; box-shadow: 0 0 20px rgba(0,0,0,0.1); min-height: 90vh; }
+        .header { display: flex; justify-content: space-between; border-bottom: 2px solid var(--primary-color); padding-bottom: 15px; margin-bottom: 25px; }
         .logo-container img { max-width: 160px; height: auto; }
-
         .header-info-block { text-align: right; }
         .main-title { font-weight: 700; font-size: 18px; color: var(--primary-color); text-transform: uppercase; margin: 0; }
         .divider { border-top: 1px solid #ccc; margin: 5px 0 5px auto; width: 100%; }
         .author-subtitle { font-size: 12px; color: #555; display: block; }
-        .contact-details { font-size: 11px; color: #777; }
-
-        .section-header {
-            background-color: var(--bg-color);
-            padding: 6px 12px;
-            font-weight: 700;
-            font-size: 13px;
-            border-left: 5px solid var(--primary-color);
-            margin: 20px 0 12px 0;
-            text-transform: uppercase;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
+        .contact-details { font-size: 11px; color: #777; line-height: 1.4; }
+        .section-header { background-color: var(--bg-color); padding: 6px 12px; font-weight: 700; font-size: 13px; border-left: 5px solid var(--primary-color); margin: 20px 0 12px 0; text-transform: uppercase; }
+        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px; }
         .info-item { font-size: 13px; }
         .label { font-weight: 600; color: #555; }
-
-        .lab-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-        }
-
-        .lab-table th, .lab-table td { border: 1px solid #dee2e6; padding: 8px; text-align: center; }
-        .lab-table th { background-color: var(--bg-color); }
-
-        @media print {
-            .no-print-zone { display: none !important; }
-            body { background: white; }
-            .report-container { box-shadow: none; margin: 0; width: 100%; }
-        }
+        @media print { .no-print-zone { display: none !important; } .report-container { box-shadow: none; margin: 0; width: 100%; } }
     </style>
 </head>
 <body>
-
     <div class="no-print-zone">
         <button class="print-button" onclick="window.print()">Imprimir PDF</button>
     </div>
 
     <div class="report-container">
-        <!-- Encabezado -->
         <div class="header">
             <div class="logo-container">
                 <img src="https://lh3.googleusercontent.com/d/1bXGpiJbozGLgbvfJ3bzDUotFRA0wg5av" alt="Innova Med Logo">
@@ -120,49 +41,52 @@
                 <div class="contact-details">
                     Estado Miranda, Gestión Remota<br>
                     Teléfono: 04242865320<br>
-                    <strong>Fecha:</strong> <span class="data-field" data-key="Fecha"><<[Fecha]>></span>
+                    <strong>Fecha:</strong> <<[Fecha]>>
                 </div>
             </div>
         </div>
 
-        <!-- Datos del Paciente -->
         <div class="info-grid">
-            <div class="info-item"><span class="label">Paciente:</span> <span class="data-field" data-key="Nombre"><<[Nombre]>></span></div>
-            <div class="info-item"><span class="label">Cédula:</span> <span class="data-field" data-key="Cedula"><<[Cedula]>></span></div>
-            <div class="info-item"><span class="label">Sexo:</span> <span class="data-field" data-key="Sexo"><<[Sexo]>></span></div>
-            <div class="info-item"><span class="label">Edad:</span> <span class="data-field" data-key="Edad"><<[Edad]>></span> años</div>
+            <div class="info-item"><span class="label">Paciente:</span> <<[Nombre]>></div>
+            <div class="info-item"><span class="label">Cédula:</span> <<[Cedula]>></div>
+            <div class="info-item"><span class="label">Sexo:</span> <<[Sexo]>></div>
+            <div class="info-item"><span class="label">Edad:</span> <<[Edad]>> años</div>
         </div>
 
-        <div class="section-header">HEA</div>
-        <div class="info-item" style="text-align: justify;"><span class="data-field" data-key="HEA"><<[HEA]>></span></div>
+        <div class="section-header">Historia de la Enfermedad Actual (HEA)</div>
+        <div class="info-item" style="text-align: justify;"><<[HEA]>></div>
 
         <div class="section-header">Antecedentes Médicos</div>
-        <div class="info-grid">
-            <div class="info-item" style="grid-column: 1 / -1;"><span class="label">Quirúrgicos:</span> <span class="data-field" data-key="Antecedentes quirúrgicos"><<[Antecedentes quirúrgicos]>></span></div>
-            <div class="info-item" style="grid-column: 1 / -1;"><span class="label">Alergias:</span> <span class="data-field" data-key="Alergia a medicamentos:"><<[Alergia a medicamentos:]>></span></div>
-        </div>
+        <div class="info-item"><span class="label">Quirúrgicos:</span> <<[Antecedentes quirúrgicos]>></div>
+        <div class="info-item"><span class="label">Alergias:</span> <<[Alergia a medicamentos:]>></div>
 
         <div class="section-header">Diagnóstico</div>
-        <div class="info-item" style="font-weight: 600;"><span class="data-field" data-key="Diagnostico"><<[Diagnostico]>></span></div>
+        <div class="info-item" style="font-weight: 600;"><<[Diagnostico]>></div>
         
         <div class="section-header">Recomendaciones</div>
-        <div class="info-item"><span class="data-field" data-key="Recomendaciones:"><<[Recomendaciones:]>></span></div>
+        <div class="info-item"><<[Recomendaciones:]>></div>
     </div>
 
-    <!-- SCRIPT MÁGICO PARA REEMPLAZAR DATOS -->
     <script>
-        window.onload = function() {
-            const params = new URLSearchParams(window.location.search);
-            
-            // Reemplaza texto plano en todo el documento
-            let html = document.body.innerHTML;
-            params.forEach((valor, llave) => {
-                const decValue = decodeURIComponent(valor);
-                const search = `<<[${llave}]>>`;
-                html = html.split(search).join(decValue);
-            });
-            document.body.innerHTML = html;
-        };
+        // Función de reemplazo robusta
+        function procesarInforme() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let contenido = document.body.innerHTML;
+
+            // Recorremos los parámetros y reemplazamos
+            for (const [key, value] of urlParams.entries()) {
+                // Creamos la etiqueta de búsqueda exacta: <<[NombreDeColumna]>>
+                const tag = `<<[${key}]>>`;
+                // Reemplazamos todas las apariciones
+                contenido = contenido.split(tag).join(value);
+            }
+
+            // Aplicamos los cambios al cuerpo del documento
+            document.body.innerHTML = contenido;
+        }
+
+        // Ejecutar inmediatamente
+        window.onload = procesarInforme;
     </script>
 </body>
 </html>
