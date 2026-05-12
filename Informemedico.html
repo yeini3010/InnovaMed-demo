@@ -30,76 +30,76 @@
             border-radius: 4px;
         }
 
-        /* Encabezado */
+        /* Encabezado Ajustado */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 20px;
+            padding-bottom: 15px;
             margin-bottom: 30px;
         }
 
         .logo-container img {
-            max-width: 180px;
+            max-width: 160px;
             height: auto;
         }
 
-        .header-contact {
+        .header-info-block {
             text-align: right;
-            font-size: 11px;
-            color: #666;
-            line-height: 1.4;
-        }
-
-        /* Títulos */
-        .title-section {
-            text-align: center;
-            margin-bottom: 30px;
+            max-width: 60%;
         }
 
         .main-title {
             font-weight: 700;
-            font-size: 22px;
+            font-size: 18px;
             color: var(--primary-color);
             margin: 0;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .author-subtitle {
-            font-weight: 300;
-            font-size: 14px;
-            color: #888;
-            margin: 5px 0 0 0;
+        /* Línea divisoria entre Título y Subtítulo */
+        .divider {
+            border-top: 1px solid #ccc;
+            margin: 5px 0 5px auto;
+            width: 100%;
         }
 
-        /* Secciones de Datos */
+        .author-subtitle {
+            font-weight: 400;
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .contact-details {
+            font-size: 11px;
+            color: #777;
+            line-height: 1.4;
+        }
+
+        /* Secciones */
         .section-header {
             background-color: var(--bg-color);
             padding: 6px 12px;
             font-weight: 700;
             font-size: 13px;
             border-left: 5px solid var(--primary-color);
-            margin: 20px 0 15px 0;
+            margin: 20px 0 12px 0;
             text-transform: uppercase;
         }
 
         .info-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 10px;
         }
 
-        .info-item {
-            font-size: 13px;
-        }
-
-        .label {
-            font-weight: 600;
-            color: #555;
-        }
+        .info-item { font-size: 13px; }
+        .label { font-weight: 600; color: #555; }
 
         .full-width {
             grid-column: 1 / -1;
@@ -124,7 +124,6 @@
 
         .lab-table th {
             background-color: var(--bg-color);
-            color: var(--primary-color);
             font-weight: 700;
         }
 
@@ -145,16 +144,18 @@
         <div class="logo-container">
             <img src="https://lh3.googleusercontent.com/d/1bXGpiJbozGLgbvfJ3bzDUotFRA0wg5av" alt="Innova Med Logo">
         </div>
-        <div class="header-contact">
-            Estado Miranda, Gestión Remota<br>
-            Teléfono: 04242865320<br>
-            <strong>Fecha:</strong> <<[Fecha]>>
+        
+        <div class="header-info-block">
+            <h1 class="main-title">Sistema Médico Digital</h1>
+            <div class="divider"></div>
+            <span class="author-subtitle">Yeinibeth Torres - Diseñador Web</span>
+            
+            <div class="contact-details">
+                Estado Miranda, Gestión Remota<br>
+                Teléfono: 04242865320<br>
+                <strong>Fecha:</strong> <<[Fecha]>>
+            </div>
         </div>
-    </div>
-
-    <div class="title-section">
-        <h1 class="main-title">Sistema Médico Digital</h1>
-        <p class="author-subtitle">Yeinibeth Torres - Diseñador Web</p>
     </div>
 
     <div class="section-header">Identificación del Paciente</div>
@@ -167,44 +168,39 @@
     </div>
 
     <div class="section-header">Historia de la Enfermedad Actual (HEA)</div>
-    <div class="full-width"><<[HEA]>></div>
+    <div class="full-width"><#<<[HEA]>>#></div>
 
     <div class="section-header">Antecedentes Médicos</div>
     <div class="info-grid">
         <div class="full-width"><span class="label">Quirúrgicos:</span> <<[Antecedentes quirúrgicos]>></div>
         <div class="full-width"><span class="label">Familiares:</span> <<[Antecedentes familiares]>></div>
         <div class="full-width"><span class="label">Personales:</span> <<[Antecedentes personales]>></div>
-        <div class="full-width"><span class="label">Alergias:</span> <<[Alergia a medicamentos:]>> - <<[Cual:]>></div>
     </div>
 
-    <div class="section-header">Examen Físico y Signos Vitales</div>
+    <div class="section-header">Examen Físico</div>
     <div class="info-grid">
-        <div class="info-item"><span class="label">P. Arterial:</span> <<[Presión arterial:]>> mmHg</div>
-        <div class="info-item"><span class="label">F.C:</span> <<[F.C]>> lpm</div>
-        <div class="info-item"><span class="label">F.R:</span> <<[F.R]>> rpm</div>
+        <div class="info-item"><span class="label">P. Arterial:</span> <<[Presión arterial:]>></div>
+        <div class="info-item"><span class="label">F.C / F.R:</span> <<[F.C]>> / <<[F.R]>></div>
         <div class="info-item"><span class="label">Temp:</span> <<[Temperatura]>> °C</div>
         <div class="info-item"><span class="label">I.M.C:</span> <<[I.M.C]>></div>
-        <div class="info-item"><span class="label">SpO2:</span> <<[Spo2]>>%</div>
     </div>
 
-    <div class="section-header">Laboratorio (Valores Principales)</div>
+    <div class="section-header">Laboratorio</div>
     <table class="lab-table">
         <thead>
             <tr>
                 <th>Hgb/Hto</th>
                 <th>Glucosa</th>
-                <th>Creatinina</th>
                 <th>Plts</th>
-                <th>Otros</th>
+                <th>Creatinina</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td><<[Hgb]>> / <<[Hto]>></td>
                 <td><<[Glucosa]>></td>
-                <td><<[Creatinina]>></td>
                 <td><<[Plts]>></td>
-                <td><<[Otros Complementarios]>></td>
+                <td><<[Creatinina]>></td>
             </tr>
         </tbody>
     </table>
@@ -212,14 +208,14 @@
     <div class="section-header">Diagnóstico</div>
     <div class="full-width" style="font-weight: 600;"><<[Diagnostico]>></div>
 
-    <div class="section-header">Recomendaciones y Plan</div>
+    <div class="section-header">Recomendaciones</div>
     <div class="full-width"><<[Recomendaciones:]>></div>
 
     <div class="footer-note">
-        Este es un documento digital generado por el sistema Innova Med.
+        Documento generado digitalmente por Innova Med.
     </div>
 </div>
 
 </body>
-          </html>
-                  
+                </html>
+                    
