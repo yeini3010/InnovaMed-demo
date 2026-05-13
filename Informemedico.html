@@ -29,7 +29,7 @@
         <button class="print-button" onclick="window.print()">Imprimir PDF</button>
     </div>
 
-    <div class="report-container">
+    <div class="report-container" id="contenido-informe">
         <div class="header">
             <div class="logo-container">
                 <img src="https://lh3.googleusercontent.com/d/1bXGpiJbozGLgbvfJ3bzDUotFRA0wg5av" alt="Innova Med Logo">
@@ -64,29 +64,28 @@
         <div class="info-item" style="font-weight: 600;"><<[Diagnostico]>></div>
         
         <div class="section-header">Recomendaciones</div>
-        <div class="info-item"><<[Recomendaciones:]>></div>
+        <div class="info-item"><#<<[Recomendaciones:]>>#></div>
     </div>
 
     <script>
-        // Función de reemplazo robusta
-        function procesarInforme() {
+        // Función de reemplazo inmediato
+        (function() {
             const urlParams = new URLSearchParams(window.location.search);
-            let contenido = document.body.innerHTML;
+            let html = document.body.innerHTML;
 
-            // Recorremos los parámetros y reemplazamos
-            for (const [key, value] of urlParams.entries()) {
-                // Creamos la etiqueta de búsqueda exacta: <<[NombreDeColumna]>>
-                const tag = `<<[${key}]>>`;
-                // Reemplazamos todas las apariciones
-                contenido = contenido.split(tag).join(value);
-            }
+            // Esta función limpia y reemplaza etiquetas
+            urlParams.forEach((value, key) => {
+                // Decodifica el valor que viene de AppSheet (limpia los %20 y similares)
+                const decodedValue = decodeURIComponent(value);
+                const tagToSearch = `<<[${key}]>>`;
+                
+                // Reemplazo global en el HTML
+                html = html.split(tagToSearch).join(decodedValue);
+            });
 
-            // Aplicamos los cambios al cuerpo del documento
-            document.body.innerHTML = contenido;
-        }
-
-        // Ejecutar inmediatamente
-        window.onload = procesarInforme;
+            // Sobrescribir el documento con los datos reales
+            document.body.innerHTML = html;
+        })();
     </script>
 </body>
 </html>
