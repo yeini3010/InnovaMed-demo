@@ -2,77 +2,117 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Informe Médico Innova Med</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Montserrat', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
-        .report-container { max-width: 800px; margin: auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .header { display: flex; justify-content: space-between; border-bottom: 2px solid #2c3e50; padding-bottom: 20px; margin-bottom: 20px; }
-        .logo { max-width: 150px; }
-        .header-text { text-align: right; font-size: 12px; }
-        .title { color: #2c3e50; text-transform: uppercase; margin: 0; font-size: 18px; }
-        .divider { height: 1px; background: #ccc; margin: 5px 0; }
-        .section-header { background: #f8f9fa; padding: 8px; font-weight: bold; border-left: 4px solid #2c3e50; margin-top: 20px; font-size: 13px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; font-size: 13px; }
-        .btn-print { position: fixed; top: 20px; right: 20px; background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        @media print { .btn-print { display: none; } body { padding: 0; } .report-container { box-shadow: none; } }
+        :root { --primary: #2c3e50; --accent: #27ae60; --bg: #f4f7f6; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); margin: 0; padding: 0; color: #333; font-size: 11px; }
+        .no-print { position: fixed; top: 20px; right: 20px; z-index: 1000; }
+        .btn-print { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .report-page { max-width: 850px; margin: 20px auto; background: white; padding: 40px; box-shadow: 0 0 10px rgba(0,0,0,0.1); min-height: 100vh; }
+        .header { display: flex; justify-content: space-between; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 20px; }
+        .title { font-size: 20px; font-weight: 700; color: var(--primary); text-transform: uppercase; margin: 0; }
+        .section-h { background: #eee; padding: 5px 10px; font-weight: 700; border-left: 4px solid var(--primary); margin: 15px 0 10px 0; text-transform: uppercase; font-size: 10px; }
+        .grid-data { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 10px; }
+        .label { font-weight: 700; color: #666; }
+        .val { color: #000; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        table th, table td { border: 1px solid #ccc; padding: 5px; text-align: center; }
+        table th { background: #f9f9f9; font-weight: 700; }
+        .full-w { grid-column: 1 / -1; text-align: justify; }
+        @media print { .no-print { display: none; } .report-page { margin: 0; box-shadow: none; width: 100%; padding: 20px; } }
     </style>
 </head>
 <body>
+    <div class="no-print"><button class="btn-print" onclick="window.print()">IMPRIMIR PDF</button></div>
 
-    <button class="btn-print" onclick="window.print()">IMPRIMIR PDF</button>
-
-    <div class="report-container">
+    <div class="report-page">
         <div class="header">
-            <img src="https://lh3.googleusercontent.com/d/1bXGpiJbozGLgbvfJ3bzDUotFRA0wg5av" class="logo">
-            <div class="header-text">
-                <h1 class="title">Sistema Médico Digital</h1>
-                <div class="divider"></div>
-                <strong>Yeinibeth Torres - Diseñador Web</strong><br>
-                Tel: 04242865320<br>
-                Fecha: <<[Fecha]>>
-            </div>
+            <div><h1 class="title">InnovaMed - Informe de Adulto</h1></div>
+            <div style="text-align: right;"><strong>ID Informe:</strong> <span id="idinf"></span><br>Fecha: <span id="fec"></span></div>
         </div>
 
-        <div class="grid">
-            <div><strong>Paciente:</strong> <<[Nombre]>></div>
-            <div><strong>Cédula:</strong> <<[Cedula]>></div>
-            <div><strong>Sexo:</strong> <<[Sexo]>></div>
-            <div><strong>Edad:</strong> <<[Edad]>> años</div>
+        <div class="section-h">Datos del Paciente</div>
+        <div class="grid-data">
+            <div class="full-w"><span class="label">Nombre:</span> <span class="val" id="nom"></span></div>
+            <div><span class="label">Cédula:</span> <span id="ced"></span></div>
+            <div><span class="label">Sexo:</span> <span id="sex"></span></div>
+            <div><span class="label">Edad:</span> <span id="eda"></span></div>
+            <div><span class="label">F.N:</span> <span id="fn"></span></div>
         </div>
 
-        <div class="section-header">HISTORIA DE LA ENFERMEDAD ACTUAL</div>
-        <div style="font-size: 13px; margin-top: 5px;"><<[HEA]>></div>
+        <div class="section-h">Motivo de Consulta / HEA</div>
+        <div class="full-w" id="hea"></div>
 
-        <div class="section-header">ANTECEDENTES</div>
-        <div class="grid">
-            <div><strong>Quirúrgicos:</strong> <<[Antecedentes quirúrgicos]>></div>
-            <div><strong>Alergias:</strong> <<[Alergia a medicamentos:]>></div>
+        <div class="section-h">Antecedentes y Hábitos</div>
+        <div class="grid-data">
+            <div class="full-w"><span class="label">Quirúrgicos:</span> <span id="a_qui"></span></div>
+            <div class="full-w"><span class="label">Familiares:</span> <span id="a_fam"></span></div>
+            <div class="full-w"><span class="label">Personales:</span> <span id="a_per"></span></div>
+            <div><span class="label">Tabaco:</span> <span id="tab"></span></div>
+            <div><span class="label">Café:</span> <span id="caf"></span></div>
+            <div><span class="label">Alcohol:</span> <span id="alc"></span></div>
+            <div><span class="label">Drogas:</span> <span id="dro"></span></div>
+            <div class="full-w"><span class="label">Medicamentos actuales:</span> <span id="med"></span></div>
+            <div class="full-w"><span class="label">Alergias:</span> <span id="ale"></span> - <span id="ale_c"></span></div>
         </div>
 
-        <div class="section-header">DIAGNÓSTICO</div>
-        <div style="font-size: 14px; font-weight: bold; margin-top: 5px;"><<[Diagnostico]>></div>
+        <div class="section-h">Examen Físico y Signos Vitales</div>
+        <div class="grid-data">
+            <div><span class="label">Tensión:</span> <span id="ta"></span></div>
+            <div><span class="label">FC/FR:</span> <span id="fc"></span> / <span id="fr"></span></div>
+            <div><span class="label">Temp:</span> <span id="tem"></span>°C</div>
+            <div><span class="label">Spo2:</span> <span id="spo"></span>%</div>
+            <div><span class="label">Peso/Talla:</span> <span id="pes"></span>kg / <span id="tal"></span>cm</div>
+            <div><span class="label">IMC:</span> <span id="imc"></span></div>
+            <div><span class="label">FUM:</span> <span id="fum"></span></div>
+        </div>
+        <div class="grid-data" style="margin-top:10px;">
+            <div class="full-w"><span class="label">Piel:</span> <span id="piel"></span></div>
+            <div class="full-w"><span class="label">Resp/Cardio:</span> <span id="resp"></span> / <span id="card"></span></div>
+            <div class="full-w"><span class="label">Abdomen/S.N:</span> <span id="abd"></span> / <span id="sn"></span></div>
+        </div>
 
-        <div class="section-header">RECOMENDACIONES</div>
-        <div style="font-size: 13px; margin-top: 5px;"><#<<[Recomendaciones:]>>#></div>
+        <div class="section-h">Laboratorio y Paraclínicos</div>
+        <table>
+            <tr><th>Hgb/Hto</th><th>Leucocitos</th><th>N/L/M/E/B</th><th>Plts</th><th>Glu/Ure/Cre</th></tr>
+            <tr>
+                <td><span id="hgb"></span> / <span id="hto"></span></td>
+                <td><span id="leu"></span></td>
+                <td><span id="neu"></span>/<span id="lin"></span>/<span id="mon"></span>/<span id="eos"></span>/<span id="bas"></span></td>
+                <td><span id="plt"></span></td>
+                <td><span id="glu"></span>/<span id="ure"></span>/<span id="cre"></span></td>
+            </tr>
+        </table>
+        <table>
+            <tr><th>PT/INR/PTT</th><th>Trig/Colest</th><th>Prot/Alb</th><th>HIV/VDRL</th><th>Grupo S.</th></tr>
+            <tr>
+                <td><span id="pt"></span>/<span id="inr"></span>/<span id="ptt"></span></td>
+                <td><span id="tri"></span>/<span id="col"></span></td>
+                <td><span id="pro"></span>/<span id="alb"></span></td>
+                <td><span id="hiv"></span>/<span id="vdr"></span></td>
+                <td><span id="gs"></span></td>
+            </tr>
+        </table>
+        <div class="grid-data">
+            <div class="full-w"><span class="label">EKG:</span> <span id="ekg"></span></div>
+            <div class="full-w"><span class="label">Rayos X:</span> <span id="rx"></span></div>
+            <div class="full-w"><span class="label">Otros:</span> <span id="ot"></span></div>
+        </div>
+
+        <div class="section-h">Conclusión Médica</div>
+        <div class="full-w"><span class="label">Diagnóstico:</span> <span style="font-weight:700" id="diag"></span></div>
+        <div class="full-w"><span class="label">Recomendaciones:</span> <span id="rec"></span></div>
     </div>
 
     <script>
-        (function() {
-            const params = new URLSearchParams(window.location.search);
-            let html = document.body.innerHTML;
-            
-            // Este bucle fuerza el reemplazo de cada dato enviado por AppSheet
-            params.forEach((value, key) => {
-                const tag = "<<[" + key + "]>>";
-                // Usamos una expresión regular para reemplazar todas las instancias
-                const escapedTag = tag.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                const re = new RegExp(escapedTag, 'g');
-                html = html.replace(re, decodeURIComponent(value));
+        window.onload = function() {
+            const p = new URLSearchParams(window.location.search);
+            p.forEach((v, k) => {
+                const el = document.getElementById(k);
+                if (el) el.innerText = decodeURIComponent(v);
             });
-            
-            document.body.innerHTML = html;
-        })();
+        }
     </script>
 </body>
 </html>
