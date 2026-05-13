@@ -2,88 +2,75 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Informe Médico Innova Med</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary-color: #2c3e50; --bg-color: #f8f9fa; --text-color: #333; }
-        body { font-family: 'Montserrat', sans-serif; color: var(--text-color); margin: 0; padding: 0; background-color: #e9ecef; }
-        .no-print-zone { position: fixed; top: 20px; right: 20px; z-index: 1000; }
-        .print-button { background-color: #27ae60; color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .report-container { max-width: 800px; margin: 20px auto; background: white; padding: 40px; box-shadow: 0 0 20px rgba(0,0,0,0.1); min-height: 90vh; }
-        .header { display: flex; justify-content: space-between; border-bottom: 2px solid var(--primary-color); padding-bottom: 15px; margin-bottom: 25px; }
-        .logo-container img { max-width: 160px; height: auto; }
-        .header-info-block { text-align: right; }
-        .main-title { font-weight: 700; font-size: 18px; color: var(--primary-color); text-transform: uppercase; margin: 0; }
-        .divider { border-top: 1px solid #ccc; margin: 5px 0 5px auto; width: 100%; }
-        .author-subtitle { font-size: 12px; color: #555; display: block; }
-        .contact-details { font-size: 11px; color: #777; line-height: 1.4; }
-        .section-header { background-color: var(--bg-color); padding: 6px 12px; font-weight: 700; font-size: 13px; border-left: 5px solid var(--primary-color); margin: 20px 0 12px 0; text-transform: uppercase; }
-        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px; }
-        .info-item { font-size: 13px; }
-        .label { font-weight: 600; color: #555; }
-        @media print { .no-print-zone { display: none !important; } .report-container { box-shadow: none; margin: 0; width: 100%; } }
+        body { font-family: 'Montserrat', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .report-container { max-width: 800px; margin: auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; border-bottom: 2px solid #2c3e50; padding-bottom: 20px; margin-bottom: 20px; }
+        .logo { max-width: 150px; }
+        .header-text { text-align: right; font-size: 12px; }
+        .title { color: #2c3e50; text-transform: uppercase; margin: 0; font-size: 18px; }
+        .divider { height: 1px; background: #ccc; margin: 5px 0; }
+        .section-header { background: #f8f9fa; padding: 8px; font-weight: bold; border-left: 4px solid #2c3e50; margin-top: 20px; font-size: 13px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; font-size: 13px; }
+        .btn-print { position: fixed; top: 20px; right: 20px; background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        @media print { .btn-print { display: none; } body { padding: 0; } .report-container { box-shadow: none; } }
     </style>
 </head>
 <body>
-    <div class="no-print-zone">
-        <button class="print-button" onclick="window.print()">Imprimir PDF</button>
-    </div>
 
-    <div class="report-container" id="contenido-informe">
+    <button class="btn-print" onclick="window.print()">IMPRIMIR PDF</button>
+
+    <div class="report-container">
         <div class="header">
-            <div class="logo-container">
-                <img src="https://lh3.googleusercontent.com/d/1bXGpiJbozGLgbvfJ3bzDUotFRA0wg5av" alt="Innova Med Logo">
-            </div>
-            <div class="header-info-block">
-                <h1 class="main-title">Sistema Médico Digital</h1>
+            <img src="https://lh3.googleusercontent.com/d/1bXGpiJbozGLgbvfJ3bzDUotFRA0wg5av" class="logo">
+            <div class="header-text">
+                <h1 class="title">Sistema Médico Digital</h1>
                 <div class="divider"></div>
-                <span class="author-subtitle">Yeinibeth Torres - Diseñador Web</span>
-                <div class="contact-details">
-                    Estado Miranda, Gestión Remota<br>
-                    Teléfono: 04242865320<br>
-                    <strong>Fecha:</strong> <<[Fecha]>>
-                </div>
+                <strong>Yeinibeth Torres - Diseñador Web</strong><br>
+                Tel: 04242865320<br>
+                Fecha: <<[Fecha]>>
             </div>
         </div>
 
-        <div class="info-grid">
-            <div class="info-item"><span class="label">Paciente:</span> <<[Nombre]>></div>
-            <div class="info-item"><span class="label">Cédula:</span> <<[Cedula]>></div>
-            <div class="info-item"><span class="label">Sexo:</span> <<[Sexo]>></div>
-            <div class="info-item"><span class="label">Edad:</span> <<[Edad]>> años</div>
+        <div class="grid">
+            <div><strong>Paciente:</strong> <<[Nombre]>></div>
+            <div><strong>Cédula:</strong> <<[Cedula]>></div>
+            <div><strong>Sexo:</strong> <<[Sexo]>></div>
+            <div><strong>Edad:</strong> <<[Edad]>> años</div>
         </div>
 
-        <div class="section-header">Historia de la Enfermedad Actual (HEA)</div>
-        <div class="info-item" style="text-align: justify;"><<[HEA]>></div>
+        <div class="section-header">HISTORIA DE LA ENFERMEDAD ACTUAL</div>
+        <div style="font-size: 13px; margin-top: 5px;"><<[HEA]>></div>
 
-        <div class="section-header">Antecedentes Médicos</div>
-        <div class="info-item"><span class="label">Quirúrgicos:</span> <<[Antecedentes quirúrgicos]>></div>
-        <div class="info-item"><span class="label">Alergias:</span> <<[Alergia a medicamentos:]>></div>
+        <div class="section-header">ANTECEDENTES</div>
+        <div class="grid">
+            <div><strong>Quirúrgicos:</strong> <<[Antecedentes quirúrgicos]>></div>
+            <div><strong>Alergias:</strong> <<[Alergia a medicamentos:]>></div>
+        </div>
 
-        <div class="section-header">Diagnóstico</div>
-        <div class="info-item" style="font-weight: 600;"><<[Diagnostico]>></div>
-        
-        <div class="section-header">Recomendaciones</div>
-        <div class="info-item"><#<<[Recomendaciones:]>>#></div>
+        <div class="section-header">DIAGNÓSTICO</div>
+        <div style="font-size: 14px; font-weight: bold; margin-top: 5px;"><<[Diagnostico]>></div>
+
+        <div class="section-header">RECOMENDACIONES</div>
+        <div style="font-size: 13px; margin-top: 5px;"><#<<[Recomendaciones:]>>#></div>
     </div>
 
     <script>
-        // Función de reemplazo inmediato
         (function() {
-            const urlParams = new URLSearchParams(window.location.search);
+            const params = new URLSearchParams(window.location.search);
             let html = document.body.innerHTML;
-
-            // Esta función limpia y reemplaza etiquetas
-            urlParams.forEach((value, key) => {
-                // Decodifica el valor que viene de AppSheet (limpia los %20 y similares)
-                const decodedValue = decodeURIComponent(value);
-                const tagToSearch = `<<[${key}]>>`;
-                
-                // Reemplazo global en el HTML
-                html = html.split(tagToSearch).join(decodedValue);
+            
+            // Este bucle fuerza el reemplazo de cada dato enviado por AppSheet
+            params.forEach((value, key) => {
+                const tag = "<<[" + key + "]>>";
+                // Usamos una expresión regular para reemplazar todas las instancias
+                const escapedTag = tag.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const re = new RegExp(escapedTag, 'g');
+                html = html.replace(re, decodeURIComponent(value));
             });
-
-            // Sobrescribir el documento con los datos reales
+            
             document.body.innerHTML = html;
         })();
     </script>
