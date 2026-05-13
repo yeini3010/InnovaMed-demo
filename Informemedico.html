@@ -5,63 +5,77 @@
     <title>Informe Médico - Innova Med</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #2c3e50; --bg: #f4f7f6; }
-        
+        /* Estilos base con pixeles fijos para asegurar compatibilidad en AppSheet */
         body { 
-            font-family: 'Montserrat', sans-serif; 
-            background-color: var(--bg); 
+            font-family: 'Montserrat', Arial, sans-serif; 
+            background-color: #f4f7f6; 
             margin: 0; 
             padding: 0; 
-            color: #000; 
-            font-size: 1em; /* Base de 1em para todo el texto */
-            line-height: 1.5;
+            color: #000000; 
+            font-size: 14px; /* Base fija en PX */
+            line-height: 1.4;
         }
 
         .no-print { position: fixed; top: 20px; right: 20px; z-index: 1000; }
         .btn-print { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
         
-        .report-page { max-width: 850px; margin: 20px auto; background: white; padding: 30px 40px; box-shadow: 0 0 10px rgba(0,0,0,0.1); min-height: 100vh; }
+        .report-page { 
+            max-width: 850px; 
+            margin: 20px auto; 
+            background: white; 
+            padding: 30px 40px; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+            min-height: 100vh; 
+            box-sizing: border-box;
+        }
         
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .logo { max-width: 160px; }
+        .logo { max-width: 160px; height: auto; }
         
-        .contact-info { text-align: right; line-height: 1.4; margin-right: 45px; }
+        .contact-info { text-align: right; line-height: 1.4; }
         
-        /* Jerarquía solicitada en EM */
-        .contact-line-1 { font-size: 1.2em; font-weight: 700; color: var(--primary); }
-        .contact-line-2 { font-size: 1em; font-weight: 400; }
-        .contact-line-3 { font-size: 0.95em; font-weight: 400; }
+        /* Jerarquía estricta en PX para evitar errores de renderizado */
+        .contact-line-1 { font-size: 16px; font-weight: 700; color: #2c3e50; }
+        .contact-line-2 { font-size: 14px; font-weight: 400; color: #333333; }
+        .contact-line-3 { font-size: 13px; font-weight: 400; color: #555555; }
         
-        .report-title { text-align: center; font-size: 1.4em; font-weight: bold; margin: 20px 0; color: #000; }
+        .report-title { text-align: center; font-size: 20px; font-weight: bold; margin: 20px 0; color: #000000; text-transform: uppercase; }
 
         .section-h { 
             background: #f1f1f1; 
-            padding: 5px 12px; 
+            padding: 6px 12px; 
             font-weight: 700; 
-            border-left: 5px solid var(--primary); 
-            margin: 15px 0 8px 0; 
+            border-left: 5px solid #2c3e50; 
+            margin: 15px 0 10px 0; 
             text-transform: uppercase; 
-            font-size: 0.9em; 
+            font-size: 13px; 
+            color: #2c3e50;
         }
 
+        /* Grid seguro: si falla el grid, los elementos caen en línea */
         .grid-data { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
             gap: 8px; 
-            margin-bottom: 10px; 
-            font-size: 0.95em; /* Datos en 0.95em */
+            margin-bottom: 12px; 
+            font-size: 13px; 
         }
         
-        .label { font-weight: 700; color: #444; }
+        .grid-data > div { min-width: 0; word-wrap: break-word; }
+        .label { font-weight: 700; color: #222222; }
         .full-w { grid-column: 1 / -1; text-align: justify; }
 
-        table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.9em; }
-        table th, table td { border: 1px solid #ccc; padding: 5px; text-align: center; }
-        table th { background: #f8f9fa; font-weight: 700; }
+        table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px; }
+        table th, table td { border: 1px solid #cccccc; padding: 6px; text-align: center; }
+        table th { background: #f8f9fa; font-weight: 700; color: #2c3e50; }
 
+        /* Ajustes específicos para la impresión y guardado de PDF */
         @media print { 
+            body { background-color: #ffffff; font-size: 12px; }
             .no-print { display: none; } 
-            .report-page { margin: 0; box-shadow: none; width: 100%; padding: 15px; } 
+            .report-page { margin: 0; box-shadow: none; width: 100%; padding: 10px; min-height: auto; }
+            .section-h { background: #f1f1f1 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            table th { background: #f8f9fa !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
 </head>
@@ -93,7 +107,7 @@
         </div>
 
         <div class="section-h">Historia de la Enfermedad Actual (HEA)</div>
-        <div class="grid-data"><div class="full-w" id="hea" style="min-height: 35px;"></div></div>
+        <div class="grid-data"><div class="full-w" id="hea" style="min-height: 35px; text-align: justify;"></div></div>
 
         <div class="section-h">Antecedentes Médicos y Hábitos</div>
         <div class="grid-data">
